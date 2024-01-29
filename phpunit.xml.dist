@@ -16,7 +16,7 @@
     backupStaticProperties="false"
 >
     <testsuites>
-        <testsuite name="VendorName Test Suite">
+        <testsuite name="AuroraWebSoftware Test Suite">
             <directory>tests</directory>
         </testsuite>
     </testsuites>
@@ -30,6 +30,17 @@
     <logging>
         <junit outputFile="build/report.junit.xml"/>
     </logging>
+    <php>
+        <env name="DB_CONNECTION" value="mysql"/>
+        <env name="DB_USERNAME" value="asetting"/>
+        <env name="DB_HOST" value="127.0.0.1"/>
+        <env name="DB_PASSWORD" value="asetting"/>
+        <env name="DB_DATABASE" value="asetting"/>
+        <env name="DB_PORT" value="33062"/>
+        <env name="CACHE_DRIVER" value="array"/>
+        <env name="SESSION_DRIVER" value="array"/>
+        <env name="QUEUE_DRIVER" value="sync"/>
+    </php>
     <source>
         <include>
             <directory suffix=".php">./src</directory>
