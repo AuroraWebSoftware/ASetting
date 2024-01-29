@@ -11,6 +11,9 @@ use Illuminate\Support\Carbon;
  * @property array $value
  * @property string $group
  * @property string $key
+ * @property string $title
+ * @property string $type
+ * @property string $is_visible
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
  *

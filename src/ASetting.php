@@ -284,7 +284,7 @@ class ASetting
             'string' => (string) $value,
             'boolean' => (bool) $value,
             'float' => (float) $value,
-            'array' => json_encode($value, true),
+            'array' => json_encode($value, 1),
             default => $value,
         };
 

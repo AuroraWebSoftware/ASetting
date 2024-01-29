@@ -8,20 +8,18 @@ use Illuminate\Support\Facades\Facade;
 /**
  * @see \AuroraWebSoftware\ASetting\ASetting
  *
- * @method set(string $key, string|int|bool|array $value, string|null $title = null, bool|null $isVisible = null): bool|array
- * @method array<string> getValues(array $keys): SettingNotFoundException|array
- * @method getValue(string $key): int|array|bool|string|null|SettingNotFoundException
- * @method delete(string $key): bool|SettingNotFoundException
- * @method getTitle(string $key): string
- * @method isVisible(string $key): bool
- * @method get(string $key): array
- * @method destroy(): bool|SettingNotFoundException
- * @method static self add(string $group, string $key, string|int|bool|array $value, string $title = null, string $type = 'string', bool $isVisible = null): \AuroraWebSoftware\ASetting\Models\ASetting|SettingNotFoundException
- * @method static self all():array
- * @method all():array
- * @method static self array<string> groups(array $groups): self
- * @method static self group(string $group): self
- * @method static self groups(array $groups): self
+ * @method  bool|array set(string $key, string|int|bool|array $value, string|null $title = null, bool|null $isVisible = null)
+ * @method  array<string> getValues(array $keys)
+ * @method  int|array|bool|string|null getValue(string $key)
+ * @method  bool delete(string $key)
+ * @method  string getTitle(string $key)
+ * @method  bool isVisible(string $key)
+ * @method  array get(string $key)
+ * @method  bool destroy()
+ * @method static \AuroraWebSoftware\ASetting\Models\ASetting add(string $group, string $key, string|int|bool|array $value, string $title = null, string $type = 'string', bool $isVisible = null)
+ * @method static array all()
+ * @method static self groups(array $groups)
+ * @method static self group(string $group)
  */
 class ASetting extends Facade
 {

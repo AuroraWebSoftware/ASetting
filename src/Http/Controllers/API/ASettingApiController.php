@@ -5,13 +5,14 @@ namespace AuroraWebSoftware\ASetting\Http\Controllers\API;
 use AuroraWebSoftware\ASetting\Exceptions\SettingNotFoundException;
 use AuroraWebSoftware\ASetting\Facades\ASetting;
 use Exception;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Validator;
 
 class ASettingApiController extends Controller
 {
-    public function getValue(string $group, string $key): \Illuminate\Http\JsonResponse
+    public function getValue(string $group, string $key): JsonResponse
     {
         $validator = Validator::make(['group' => $group, 'key' => $key], [
             'group' => 'required|string',
@@ -36,7 +37,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function getTitle(string $group, string $key): \Illuminate\Http\JsonResponse
+    public function getTitle(string $group, string $key): JsonResponse
     {
         $validator = Validator::make(['group' => $group, 'key' => $key], [
             'group' => 'required|string',
@@ -61,7 +62,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function isVisible(string $group, string $key): \Illuminate\Http\JsonResponse
+    public function isVisible(string $group, string $key): JsonResponse
     {
         $validator = Validator::make(['group' => $group, 'key' => $key], [
             'group' => 'required|string',
@@ -87,9 +88,11 @@ class ASettingApiController extends Controller
     }
 
     /**
-     * @return \Illuminate\Http\JsonResponse
+     * @param string $group
+     * @param string $key
+     * @return array
      */
-    public function get(string $group, string $key)
+    public function get(string $group, string $key):array|JsonResponse
     {
         $validator = Validator::make(['group' => $group, 'key' => $key], [
             'group' => 'required|string',
@@ -112,7 +115,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function getValues(Request $request): \Illuminate\Http\JsonResponse
+    public function getValues(Request $request): JsonResponse
     {
         $group = $request->input('group');
         $keys = $request->input('key');
@@ -146,7 +149,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function set(Request $request): \Illuminate\Http\JsonResponse
+    public function set(Request $request): JsonResponse
     {
         $group = $request->input('group');
         $key = $request->input('key');
@@ -180,7 +183,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function add(Request $request): \Illuminate\Http\JsonResponse
+    public function add(Request $request): JsonResponse
     {
         $group = $request->input('group');
         $key = $request->input('key');
@@ -216,7 +219,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function all(?string $group = null): \Illuminate\Http\JsonResponse
+    public function all(?string $group = null): JsonResponse
     {
         $validator = Validator::make(['group' => $group], [
             'group' => 'sometimes|string|nullable',
@@ -246,7 +249,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function delete(string $group, string $key): \Illuminate\Http\JsonResponse|bool
+    public function delete(string $group, string $key): JsonResponse|bool
     {
         $validator = Validator::make(['group' => $group, 'key' => $key], [
             'group' => 'required|string',
@@ -269,7 +272,7 @@ class ASettingApiController extends Controller
         }
     }
 
-    public function destroy(string $group): \Illuminate\Http\JsonResponse|bool
+    public function destroy(string $group): JsonResponse|bool
     {
         $validator = Validator::make(['group' => $group], [
             'group' => 'required|string',
