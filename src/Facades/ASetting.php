@@ -2,7 +2,6 @@
 
 namespace AuroraWebSoftware\ASetting\Facades;
 
-use AuroraWebSoftware\ASetting\Exceptions\SettingNotFoundException;
 use Illuminate\Support\Facades\Facade;
 
 /**
