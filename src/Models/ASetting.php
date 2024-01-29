@@ -13,6 +13,7 @@ use Illuminate\Support\Carbon;
  * @property string $key
  * @property Carbon|null $created_at
  * @property Carbon|null $updated_at
+ *
  * @method static find($role_id) : RoleModelAbacRule
  * @method static where(string $string, string $string1, int $id)
  * @method static destroy($ids)
@@ -25,6 +26,7 @@ use Illuminate\Support\Carbon;
 class ASetting extends Model
 {
     protected $table = 'asettings';
+
     protected $guarded = [];
 
     protected function value(): Attribute
@@ -34,10 +36,9 @@ class ASetting extends Model
                 return json_decode($value)[0];
 
             }, set: function ($value) {
-            return json_encode([$value]);
+                return json_encode([$value]);
 
-        }
+            }
         );
     }
-
 }

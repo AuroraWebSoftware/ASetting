@@ -73,4 +73,3 @@ class ASettingServiceProvider extends ServiceProvider
             ->hasCommand(ASettingCommand::class);
     }
 }
-

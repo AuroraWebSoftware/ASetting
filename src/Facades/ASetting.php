@@ -7,6 +7,7 @@ use Illuminate\Support\Facades\Facade;
 
 /**
  * @see \AuroraWebSoftware\ASetting\ASetting
+ *
  * @method set(string $key, string|int|bool|array $value, string|null $title = null, bool|null $isVisible = null): bool|array
  * @method array<string> getValues(array $keys): SettingNotFoundException|array
  * @method getValue(string $key): int|array|bool|string|null|SettingNotFoundException
@@ -21,7 +22,6 @@ use Illuminate\Support\Facades\Facade;
  * @method static self array<string> groups(array $groups): self
  * @method static self group(string $group): self
  * @method static self groups(array $groups): self
- *
  */
 class ASetting extends Facade
 {

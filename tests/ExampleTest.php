@@ -19,7 +19,7 @@ beforeEach(function () {
         $table->id();
 
         $table->string('group')->default('general');
-        $table->enum('type' , ['string','integer','boolean','json','array','date'])->default('string');
+        $table->enum('type', ['string', 'integer', 'boolean', 'json', 'array', 'date'])->default('string');
         $table->string('key')->nullable(false);
         $table->jsonb('value')->nullable(false);
         $table->string('title')->nullable(false);
@@ -28,34 +28,34 @@ beforeEach(function () {
         $table->timestamps();
     });
 
-     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
+    \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
         'id' => 1,
-        'group' => "general",
+        'group' => 'general',
         'type' => 'integer',
         'key' => 'date',
         'value' => 1556,
-         'title' => "Title 1",
-         'is_visible' => false
+        'title' => 'Title 1',
+        'is_visible' => false,
     ]);
 
-     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-         'id' => 2,
-        'group' => "magento",
+    \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
+        'id' => 2,
+        'group' => 'magento',
         'type' => 'string',
         'key' => 'api_key',
-        'value' => "asd",
-         'title' => "Title 1",
-         'is_visible' => true
+        'value' => 'asd',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
         'id' => 3,
-        'group' => "mikro",
+        'group' => 'mikro',
         'type' => 'string',
         'key' => 'api_key_',
-        'value' => "asdddd",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'asdddd',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
 });
@@ -139,8 +139,8 @@ it('throws exception if key is null for getValue method', function () {
         'key' => 'test_key',
         'value' => '123',
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     expect(function () {
@@ -154,8 +154,8 @@ it('throws exception if key is not found for getValue method', function () {
         'key' => 'test_key',
         'value' => '123',
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     expect(function () {
         \AuroraWebSoftware\ASetting\Facades\ASetting::group('non_existent_group')->getValue('some_key_');
@@ -174,8 +174,8 @@ it('returns correct value based on variable type for getValue method', function 
         'key' => 'test_key',
         'value' => '123',
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $value = \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group')->getValue('test_key');
@@ -188,8 +188,8 @@ it('correctly converts and returns value based on variable type for getValue met
         'key' => 'test_key',
         'value' => '123',
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $value = \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group')->getValue('test_key');
@@ -226,8 +226,8 @@ it('returns correct value based on variable type for key found in multiple group
         'key' => 'test_key',
         'value' => '123',
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -235,8 +235,8 @@ it('returns correct value based on variable type for key found in multiple group
         'key' => 'test_key',
         'value' => '456',
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     expect(function () {
@@ -268,8 +268,8 @@ it('throws exception if group is not found', function () {
         'key' => 'test_key',
         'value' => 'test_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     // Grup bulunamadığı durumu simüle edilir
     // SettingNotFoundException hatası bekleniyor
@@ -285,8 +285,8 @@ it('returns correct values based on variable type for multiple keys found in mul
         'key' => 'test_key1',
         'value' => 123,
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -294,8 +294,8 @@ it('returns correct values based on variable type for multiple keys found in mul
         'key' => 'test_key2',
         'value' => 456,
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $values = \AuroraWebSoftware\ASetting\Facades\ASetting::groups(['group1', 'group2'])->getValues(['test_key1', 'test_key2']);
@@ -311,8 +311,8 @@ it('returns correct values based on variable type for multiple keys found in gro
         'key' => 'test_key1',
         'value' => 123,
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -320,8 +320,8 @@ it('returns correct values based on variable type for multiple keys found in gro
         'key' => 'test_key2',
         'value' => 456,
         'type' => 'integer',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $values = \AuroraWebSoftware\ASetting\Facades\ASetting::group('group1')->getValues(['test_key1', 'test_key2']);
@@ -335,7 +335,7 @@ it('throws exception if group is not found for getValues method', function () {
     \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group2');
 
     expect(function () {
-        \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group2')->set('non_existent_key','non_existent_key');
+        \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group2')->set('non_existent_key', 'non_existent_key');
     })->toThrow(GroupNotFoundException::class);
 });
 
@@ -354,8 +354,8 @@ it('throws exception if setting is not found', function () {
         'key' => 'test_key',
         'value' => 'test_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     // group fonksiyonu çağrılarak bir grup seçilir
     // Var olmayan bir ayar için set fonksiyonunu çağırmak
@@ -373,8 +373,8 @@ it('throws exception if groups function is not called before set', function () {
         'key' => 'test_key',
         'value' => 'old_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     expect(function () {
@@ -392,8 +392,8 @@ it('updates setting value successfully', function () {
         'key' => 'test_key',
         'value' => 'old_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // Yeni değeri ayara atayalım
@@ -409,7 +409,7 @@ it('throws exception if group is not found for set method', function () {
     \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group2');
 
     expect(function () {
-        \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group2')->set('non_existent_key','non_existent_key');
+        \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group2')->set('non_existent_key', 'non_existent_key');
     })->toThrow(GroupNotFoundException::class);
 });
 
@@ -429,8 +429,8 @@ it('throws exception if setting is not found for delete method', function () {
         'key' => 'test_key',
         'value' => 'test_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     \AuroraWebSoftware\ASetting\Facades\ASetting::group('test_group');
 
@@ -462,8 +462,8 @@ it('deletes setting successfully', function () {
         'key' => 'test_key',
         'value' => 'test_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // delete fonksiyonunu çağırarak ayarı sil
@@ -483,8 +483,8 @@ it('returns all settings if group or groups method is not called', function () {
         'key' => 'test_key1',
         'value' => 'test_value1',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -492,8 +492,8 @@ it('returns all settings if group or groups method is not called', function () {
         'key' => 'test_key2',
         'value' => 'test_value2',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting3 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -501,8 +501,8 @@ it('returns all settings if group or groups method is not called', function () {
         'key' => 'another_key',
         'value' => 'another_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // group veya groups fonksiyonları çağrılmadan tüm ayarları al
@@ -527,8 +527,8 @@ it('returns settings for specified group if group method is called', function ()
         'key' => 'test_key1',
         'value' => 'test_value1',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -536,8 +536,8 @@ it('returns settings for specified group if group method is called', function ()
         'key' => 'test_key2',
         'value' => 'test_value2',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting3 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -545,8 +545,8 @@ it('returns settings for specified group if group method is called', function ()
         'key' => 'another_key',
         'value' => 'another_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // group fonksiyonu çağrılarak bir grup belirtilir
@@ -571,8 +571,8 @@ it('returns settings grouped by group if groups method is called', function () {
         'key' => 'test_key1',
         'value' => 'test_value1',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -580,8 +580,8 @@ it('returns settings grouped by group if groups method is called', function () {
         'key' => 'test_key2',
         'value' => 'test_value2',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting3 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -589,8 +589,8 @@ it('returns settings grouped by group if groups method is called', function () {
         'key' => 'test_key3',
         'value' => 'test_value3',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // groups fonksiyonu çağrılarak birden fazla grup belirtilir
@@ -619,8 +619,8 @@ it('deletes all settings in the group if group or groups method is called', func
         'key' => 'test_key1',
         'value' => 'test_value1',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -628,8 +628,8 @@ it('deletes all settings in the group if group or groups method is called', func
         'key' => 'test_key2',
         'value' => 'test_value2',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // group fonksiyonu çağrılarak bir grup belirtilir
@@ -650,8 +650,8 @@ it('deletes all settings in the groups if groups method is called', function () 
         'key' => 'test_key1',
         'value' => 'test_value1',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     $setting2 = \AuroraWebSoftware\ASetting\Models\ASetting::create([
@@ -659,8 +659,8 @@ it('deletes all settings in the groups if groups method is called', function () 
         'key' => 'test_key2',
         'value' => 'test_value2',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // groups fonksiyonu çağrılarak birden fazla grup belirtilir
@@ -678,7 +678,7 @@ it('deletes all settings in the groups if groups method is called', function () 
 it('adds a new setting successfully', function () {
     // add metodu statik olarak çağrıldığında ve group veya groups fonksiyonları çağrılmadan çalışır
     // Bir ayar ekle
-    $newSetting = ASetting::add('test_group', 'test_key', 'test_value', 'Title 1','string',true);
+    $newSetting = ASetting::add('test_group', 'test_key', 'test_value', 'Title 1', 'string', true);
 
     // Ayarın doğru şekilde oluşturulup oluşturulmadığını kontrol et
     expect($newSetting)->toBeInstanceOf(\AuroraWebSoftware\ASetting\Models\ASetting::class);
@@ -698,8 +698,8 @@ it('throws exception if setting already exists', function () {
         'key' => 'test_key',
         'value' => 'old_value',
         'type' => 'string',
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     // Aynı anahtar ve gruba sahip bir ayar eklemeye çalıştığında bir istisna fırlatılıp fırlatılmadığını kontrol et
@@ -712,6 +712,6 @@ it('throws exception for invalid data type', function () {
     // add metodu statik olarak çağrıldığında ve group veya groups fonksiyonları çağrılmadan çalışır
     // Geçersiz bir veri türü belirtilirse bir istisna fırlatılıp fırlatılmadığını kontrol et
     expect(function () {
-        ASetting::add('test_group', 'test_key', 'test_value', 'Title 1', true , 'invalid_type');
+        ASetting::add('test_group', 'test_key', 'test_value', 'Title 1', true, 'invalid_type');
     })->toThrow(\AuroraWebSoftware\ASetting\Exceptions\InvalidArgumentException::class);
 });

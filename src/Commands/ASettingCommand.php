@@ -4,7 +4,6 @@ namespace AuroraWebSoftware\ASetting\Commands;
 
 use AuroraWebSoftware\ASetting\Facades\ASetting;
 use Illuminate\Console\Command;
-use Illuminate\Http\JsonResponse;
 
 class ASettingCommand extends Command
 {
@@ -28,10 +27,10 @@ class ASettingCommand extends Command
                 return ASetting::group($group)->all();
             }
 
-            if ($group == 'null'){
+            if ($group == 'null') {
                 return ASetting::all();
             }
-        }catch (\Exception $exception){
+        } catch (\Exception $exception) {
             return $exception->getMessage();
         }
     }
