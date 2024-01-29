@@ -88,11 +88,9 @@ class ASettingApiController extends Controller
     }
 
     /**
-     * @param string $group
-     * @param string $key
      * @return array
      */
-    public function get(string $group, string $key):array|JsonResponse
+    public function get(string $group, string $key): array|JsonResponse
     {
         $validator = Validator::make(['group' => $group, 'key' => $key], [
             'group' => 'required|string',
