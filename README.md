@@ -1,84 +1,269 @@
-# ASetting is a Laravel package that allows you to dynamically define your config definitions.
+# ASetting Laravel Package
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/aurorawebsoftware/asetting.svg?style=flat-square)](https://packagist.org/packages/aurorawebsoftware/asetting)
-[![GitHub Tests Action Status](https://img.shields.io/github/actions/workflow/status/aurorawebsoftware/asetting/run-tests.yml?branch=main&label=tests&style=flat-square)](https://github.com/aurorawebsoftware/asetting/actions?query=workflow%3Arun-tests+branch%3Amain)
-[![GitHub Code Style Action Status](https://img.shields.io/github/actions/workflow/status/aurorawebsoftware/asetting/fix-php-code-style-issues.yml?branch=main&label=code%20style&style=flat-square)](https://github.com/aurorawebsoftware/asetting/actions?query=workflow%3A"Fix+PHP+code+style+issues"+branch%3Amain)
-[![Total Downloads](https://img.shields.io/packagist/dt/aurorawebsoftware/asetting.svg?style=flat-square)](https://packagist.org/packages/aurorawebsoftware/asetting)
-
-This is where your description should go. Limit it to a paragraph or two. Consider adding a small example.
-
-## Support us
-
-[<img src="https://github-ads.s3.eu-central-1.amazonaws.com/ASetting.jpg?t=1" width="419px" />](https://spatie.be/github-ad-click/ASetting)
-
-We invest a lot of resources into creating [best in class open source packages](https://spatie.be/open-source). You can support us by [buying one of our paid products](https://spatie.be/open-source/support-us).
-
-We highly appreciate you sending us a postcard from your hometown, mentioning which of our package(s) you are using. You'll find our address on [our contact page](https://spatie.be/about-us). We publish all received postcards on [our virtual postcard wall](https://spatie.be/open-source/postcards).
+ASetting is a Laravel package that allows you to manage settings dynamically in your Laravel applications. With this package, you can organize settings in groups stored in the database, supporting various types of settings for easy management.
 
 ## Installation
 
-You can install the package via composer:
+You can add the ASetting package to your Laravel project by following the steps below.
+
+### Installation via Composer
+
+Add the package to your project using Composer.
 
 ```bash
 composer require aurorawebsoftware/asetting
 ```
 
-You can publish and run the migrations with:
+### Publish Configuration
+
+To publish the configuration file, run the following command:
 
 ```bash
-php artisan vendor:publish --tag="asetting-migrations"
+php artisan vendor:publish --tag=asetting-config
+```
+
+This will add the `config/asetting.php` file to your project, which contains the configuration settings for the ASetting package.
+
+### Migration
+
+Run the migration to create the database table used to store settings:
+
+```bash
 php artisan migrate
-```
-
-You can publish the config file with:
-
-```bash
-php artisan vendor:publish --tag="asetting-config"
-```
-
-This is the contents of the published config file:
-
-```php
-return [
-];
-```
-
-Optionally, you can publish the views using
-
-```bash
-php artisan vendor:publish --tag="asetting-views"
 ```
 
 ## Usage
 
+### ASetting Facade
+
+The ASetting Facade allows you to easily manage settings. Below are some basic functions and features provided by the Facade.
+
+#### `group(string $group): self`
+
+Used to work with settings in a specific group.
+
 ```php
-$aSetting = new AuroraWebSoftware\ASetting();
-echo $aSetting->echoPhrase('Hello, AuroraWebSoftware!');
+ASetting::group('site')->getValue('title');
 ```
 
-## Testing
+#### `groups(array $groups): self`
 
-```bash
-composer test
+Used to work with settings in multiple groups.
+
+```php
+ASetting::groups(['site', 'mail'])->all();
 ```
 
-## Changelog
+#### `getValue(string $key): int|array|bool|string|null|SettingNotFoundException`
 
-Please see [CHANGELOG](CHANGELOG.md) for more information on what has changed recently.
+Used to get the value of a specific setting.
 
-## Contributing
+```php
+ASetting::group('site')->getValue('title');
+```
 
-Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
+#### `getTitle(string $key): string`
 
-## Security Vulnerabilities
+Used to get the title of a specific setting.
 
-Please review [our security policy](../../security/policy) on how to report security vulnerabilities.
+```php
+ASetting::group('site')->getTitle('title');
+```
 
-## Credits
+#### `isVisible(string $key): bool`
 
-- [AuroraWebSoftwareTeam](https://github.com/aurorawebsoftware)
-- [All Contributors](../../contributors)
+Used to check the visibility status of a specific setting.
+
+```php
+ASetting::group('site')->isVisible('title');
+```
+
+#### `get(string $key): array`
+
+Used to get all information about a specific setting.
+
+```php
+ASetting::group('site')->get('title');
+```
+
+#### `getValues(array $keys): SettingNotFoundException|array`
+
+Used to get the values of a specific setting.
+
+```php
+ASetting::group('site')->getValues(['title','name']);
+```
+
+#### `getValues(array $keys): SettingNotFoundException|array`
+
+Used to get the values of a specific settings.
+
+```php
+ASetting::groups(['site','general'])->getValues(['title','name']);
+```
+
+#### `set(string $key, string|int|bool|array $value, string|null $title = null, bool|null $isVisible = null): bool|array`
+
+Used to update or create the value of a specific setting.
+
+```php
+ASetting::group('site')->set('title', 'New Title', 'Site Title', true);
+```
+
+#### `delete(string $key): bool|SettingNotFoundException`
+
+Used to delete a specific setting.
+
+```php
+ASetting::group('site')->delete('title');
+```
+
+#### `all(?string $group = null): array`
+
+Used to get all settings grouped by groups or under a specific group.
+
+```php
+ASetting::all(); // Get all settings
+ASetting::group('site')->all(); // Get all settings under a specific group
+```
+
+#### `destroy(string $group): bool|SettingNotFoundException`
+
+Used to delete all settings under a specific group.
+
+```php
+ASetting::group('site')->destroy();
+ASetting::groups(['site','general'])->destroy();
+```
+
+#### `add(string $group, string $key, string|int|bool|array $value, string $title = null, string $type = 'string', bool $isVisible = null): ASettingModel|SettingNotFoundException`
+
+Used to add a new setting.
+
+```php
+ASetting::add('site', 'new_setting', 'Value', 'Setting Title', 'string', true);
+```
+
+## API Usage
+### Config
+You can define tokens for APIs. You can also configure it by adding your own middleware.
+```php
+return [
+'api_token' => ['YOUR_BEARER_TOKEN_HERE'],
+'api_middleware' => [
+// YourMiddlewareClass::class
+]
+];
+```
+### Endpoint Details
+
+
+### getValue
+
+- **Endpoint:** `/api/asetting/getValue/{group}/{key}`
+- **Method:** GET
+- **Parameters:** `group` (string), `key` (string)
+
+### getTitle
+
+- **Endpoint:** `/api/asetting/getTitle/{group}/{key}`
+- **Method:** GET
+- **Parameters:** `group` (string), `key` (string)
+
+### isVisible
+
+- **Endpoint:** `/api/asetting/isVisible/{group}/{key}`
+- **Method:** GET
+- **Parameters:** `group` (string), `key` (string)
+
+### get
+
+- **Endpoint:** `/api/asetting/get/{group}/{key}`
+- **Method:** GET
+- **Parameters:** `group` (string), `key` (string)
+
+### getValues
+
+- **Endpoint:** `/api/asetting/getValues`
+- **Method:** POST
+- **Parameters:** `group` (string|array), `keys` (array)
+
+### set
+
+- **Endpoint:** `/api/asetting/set`
+- **Method:** PUT
+- **Parameters:** `group` (string), `key` (string), `value` (string|array), `title` (string, optional), `is_visible` (bool, optional)
+
+### add
+
+- **Endpoint:** `/api/asetting/add`
+- **Method:** POST
+- **Parameters:** `group` (string), `key` (string), `value` (string|array|bool|int), `type` (string), `title` (string), `is_visible` (bool, optional)
+
+### all
+
+- **Endpoint:** `/api/asetting/all/{group?}`
+- **Method:** GET
+- **Parameters:** `group` (string, optional)
+
+### delete
+
+- **Endpoint:** `/api/asetting/delete/{group}/{key}`
+- **Method:** DELETE
+- **Parameters:** `group` (string), `key` (string)
+
+### destroy
+
+- **Endpoint:** `/api/asetting/destroy/{group}`
+- **Method:** DELETE
+- **Parameters:** `group` (string)
+
+### Error Handling
+
+In case of invalid requests or errors, the API will return a JSON response with a corresponding message and, if applicable, validation errors.
+
+Feel free to copy and paste this documentation into your README file. Adjust the formatting as needed.
+
+
+## ASetting Command
+
+This command allows you to interact with the ASetting package.
+
+### Usage
+
+php artisan asetting {group=null} {key=null}
+
+This command allows you to interact with the ASetting package.
+
+### Examples
+
+1. Fetch a specific setting value:
+
+```plaintext
+php artisan asetting myGroup myKey
+```
+
+2. Fetch all settings in a specific group:
+
+```plaintext
+php artisan asetting myGroup
+```
+
+3. Fetch all settings:
+
+```plaintext
+php artisan asetting
+```
+
+### Note
+
+- If the specified group or key is not found, an exception message will be displayed.
+- The command returns the setting value, which can be a string, array, or other types, based on the configuration.
+
 
 ## License
 
-The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+The ASetting package is licensed under the MIT License.
+
+--- 
+
