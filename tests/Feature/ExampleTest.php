@@ -3,7 +3,6 @@
 use AuroraWebSoftware\ASetting\Facades\ASetting;
 use AuroraWebSoftware\ASetting\Http\Controllers\API\ASettingApiController;
 use Illuminate\Database\Schema\Blueprint;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Support\Facades\Schema;
@@ -26,55 +25,55 @@ beforeEach(function () {
 
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
         'id' => 1,
-        'group' => "general",
+        'group' => 'general',
         'type' => 'integer',
         'key' => 'date',
         'value' => 1556,
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
         'id' => 2,
-        'group' => "magento",
+        'group' => 'magento',
         'type' => 'string',
         'key' => 'api_key',
-        'value' => "asd",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'asd',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
         'id' => 3,
-        'group' => "mikro",
+        'group' => 'mikro',
         'type' => 'string',
         'key' => 'api_key_',
-        'value' => "asdddd",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'asdddd',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
         'id' => 4,
-        'group' => "mikro",
+        'group' => 'mikro',
         'type' => 'boolean',
         'key' => 'keyy',
         'value' => true,
-        'title' => "Title 1",
-        'is_visible' => true
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
 
     Route::middleware(array_merge([\AuroraWebSoftware\ASetting\Http\Middleware\BearerTokenAuth::class], config('asetting.api_middleware')))->group(function () {
-        Route::get("/api/asetting/getValue/{group}/{key}", [ASettingApiController::class, 'getValue'])->name('asetting.getValue');
-        Route::get("/api/asetting/getTitle/{group}/{key}", [ASettingApiController::class, 'getTitle'])->name('asetting.getTitle');
-        Route::get("/api/asetting/get/{group}/{key}", [ASettingApiController::class, 'get'])->name('asetting.get');
-        Route::get("/api/asetting/isVisible/{group}/{key}", [ASettingApiController::class, 'isVisible'])->name('asetting.isVisible');
-        Route::delete("/api/asetting/delete/{group}/{key}", [ASettingApiController::class, 'delete'])->name('asetting.delete');
-        Route::delete("/api/asetting/destroy/{group}", [ASettingApiController::class, 'destroy'])->name('asetting.destroy');
-        Route::get("/api/asetting/all/{group?}", [ASettingApiController::class, 'all'])->name('asetting.all');
-        Route::post("/api/asetting/getValues", [ASettingApiController::class, 'getValues'])->name('asetting.getValues');
-        Route::post("/api/asetting/add", [ASettingApiController::class, 'add'])->name('asetting.add');
-        Route::put("/api/asetting/set", [ASettingApiController::class, 'set'])->name('asetting.set');
+        Route::get('/api/asetting/getValue/{group}/{key}', [ASettingApiController::class, 'getValue'])->name('asetting.getValue');
+        Route::get('/api/asetting/getTitle/{group}/{key}', [ASettingApiController::class, 'getTitle'])->name('asetting.getTitle');
+        Route::get('/api/asetting/get/{group}/{key}', [ASettingApiController::class, 'get'])->name('asetting.get');
+        Route::get('/api/asetting/isVisible/{group}/{key}', [ASettingApiController::class, 'isVisible'])->name('asetting.isVisible');
+        Route::delete('/api/asetting/delete/{group}/{key}', [ASettingApiController::class, 'delete'])->name('asetting.delete');
+        Route::delete('/api/asetting/destroy/{group}', [ASettingApiController::class, 'destroy'])->name('asetting.destroy');
+        Route::get('/api/asetting/all/{group?}', [ASettingApiController::class, 'all'])->name('asetting.all');
+        Route::post('/api/asetting/getValues', [ASettingApiController::class, 'getValues'])->name('asetting.getValues');
+        Route::post('/api/asetting/add', [ASettingApiController::class, 'add'])->name('asetting.add');
+        Route::put('/api/asetting/set', [ASettingApiController::class, 'set'])->name('asetting.set');
     });
     Artisan::command('asetting {group=null} {key=null}', function () {
         $group = $this->argument('group');
@@ -103,7 +102,7 @@ it('get getValue api unauthorized token', function () {
     ])->get('/api/asetting/getValue/group1/api_key');
 
     expect($response->json())->toBeArray()->toEqual([
-        "message" => "Unauthorized"
+        'message' => 'Unauthorized',
     ]);
 });
 
@@ -113,7 +112,7 @@ it('get getValue api invalid token', function () {
     ])->get('/api/asetting/getValue/group1/api_key');
 
     expect($response->json())->toBeArray()->toEqual([
-        "message" => "Invalid Token"
+        'message' => 'Invalid Token',
     ]);
 });
 
@@ -123,80 +122,78 @@ it('get getValue api invalid group', function () {
     ])->get('/api/asetting/getValue/group1/api_key');
 
     expect($response->json())->toBeArray()->toEqual([
-        "message" => "Group Not Found!"
+        'message' => 'Group Not Found!',
     ]);
 });
-
 
 it('get getValue api invalid key', function () {
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
     ])->get('/api/asetting/getValue/general/asd');
     expect($response->json())->toBeArray()->toEqual([
-        "message" => "Setting Not Found!"
+        'message' => 'Setting Not Found!',
     ]);
 });
 
 it('get getValue api success response', function () {
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key1',
-        'value' => "value1",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value1',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
     ])->get('/api/asetting/getValue/group1/api_key1');
     expect($response->json())->toBeArray()->toEqual([
-        "api_key1" => "value1"
+        'api_key1' => 'value1',
     ]);
 });
 
-
 it('get getTitle api success response', function () {
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key1',
-        'value' => "value1",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value1',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
     ])->get('/api/asetting/getTitle/group1/api_key1');
     expect($response->json())->toBeArray()->toEqual([
-        "api_key1" => "Title 1"
+        'api_key1' => 'Title 1',
     ]);
 });
 
 it('get isVisible api success response', function () {
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key1',
-        'value' => "value1",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value1',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
     ])->get('/api/asetting/isVisible/group1/api_key1');
     expect($response->json())->toBeArray()->toEqual([
-        "api_key1" => true
+        'api_key1' => true,
     ]);
 });
 
 it('put set api success', function () {
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key1',
-        'value' => "value1",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value1',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
@@ -205,12 +202,12 @@ it('put set api success', function () {
         'key' => 'api_key1',
         'value' => 'changed_value',
         'title' => 'Changed Title',
-        'is_visible' => false
+        'is_visible' => false,
     ]);
 
     $setting = \AuroraWebSoftware\ASetting\Models\ASetting::where([
         'group' => 'group1',
-        'key' => 'api_key1'
+        'key' => 'api_key1',
     ])->first();
 
     expect($setting->group)->toBe('group1');
@@ -222,20 +219,20 @@ it('put set api success', function () {
 
 it('post getValue api invalid group', function () {
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key1',
-        'value' => "value1",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value1',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key2',
-        'value' => "value2",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value2',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
@@ -244,14 +241,14 @@ it('post getValue api invalid group', function () {
         'key' => [
             'api_key1',
             'api_key2',
-            'api_value'
-        ]
+            'api_value',
+        ],
     ]);
 
     expect($response->json())->toBeArray()->toEqual(
         ['group1' => [
-            "api_key1" => "value1",
-            "api_key2" => "value2"
+            'api_key1' => 'value1',
+            'api_key2' => 'value2',
         ]]);
 });
 
@@ -280,7 +277,7 @@ it('get all settings for a non-existent group', function () {
     ])->get('/api/asetting/all/nonexistentgroup');
 
     expect($response->json())->toBeArray()->toEqual([
-        "message" => "Group Not Found!"
+        'message' => 'Group Not Found!',
     ]);
 });
 
@@ -331,12 +328,12 @@ it('add new setting with missing required fields', function () {
 //delete
 it('delete existing setting', function () {
     \AuroraWebSoftware\ASetting\Tests\Models\ASetting::create([
-        'group' => "group1",
+        'group' => 'group1',
         'type' => 'string',
         'key' => 'api_key1',
-        'value' => "value1",
-        'title' => "Title 1",
-        'is_visible' => true
+        'value' => 'value1',
+        'title' => 'Title 1',
+        'is_visible' => true,
     ]);
     $response = $this->withHeaders([
         'Authorization' => 'Bearer YOUR_BEARER_TOKEN_HERE',
@@ -352,7 +349,7 @@ it('delete non-existing setting', function () {
     ])->delete('/api/asetting/delete/general/nonexistent_key');
 
     expect($response->json())->toBe([
-        "message" => "Setting Not Found!"
+        'message' => 'Setting Not Found!',
     ]);
 
 });
@@ -363,7 +360,7 @@ it('delete setting with invalid group', function () {
     ])->delete('/api/asetting/delete/invalid_group/new_key');
 
     expect($response->json())->toBe([
-        "message" => "Group Not Found!"
+        'message' => 'Group Not Found!',
     ]);
 });
 
@@ -391,9 +388,6 @@ it('destroy settings for non-existing group', function () {
     ])->delete('/api/asetting/destroy/nonexistent_group');
 
     expect($response->json())->toBe([
-        "message" => "Group Not Found!"
+        'message' => 'Group Not Found!',
     ]);
 });
-
-
-
