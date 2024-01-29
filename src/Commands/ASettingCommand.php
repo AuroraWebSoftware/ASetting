@@ -11,9 +11,6 @@ class ASettingCommand extends Command
 
     public $description = 'My command';
 
-    /**
-     * @return array|string|int|bool|null
-     */
     public function handle(): array|string|int|bool|null
     {
         $group = $this->argument('group');
@@ -30,6 +27,7 @@ class ASettingCommand extends Command
             if ($group == 'null') {
                 return ASetting::all();
             }
+
             return null;
         } catch (\Exception $exception) {
             return $exception->getMessage();
