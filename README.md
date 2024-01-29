@@ -235,7 +235,6 @@ php artisan asetting {group=null} {key=null}
 
 This command allows you to interact with the ASetting package.
 
-### Examples
 
 1. Fetch a specific setting value:
 
