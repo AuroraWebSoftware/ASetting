@@ -1,7 +1,8 @@
 # ASetting Laravel Package
 
 ASetting is a Laravel package that allows you to manage settings dynamically in your Laravel applications. With this package, you can organize settings in groups stored in the database, supporting various types of settings for easy management.
-
+## Features
+-  Introducing an interactive blade page where users can view and modify application settings. With this feature, users will be able to customize the behavior and preferences of the application according to their needs.
 ## Installation
 
 You can add the ASetting package to your Laravel project by following the steps below.
