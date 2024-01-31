@@ -1,6 +1,6 @@
 <?php
 
-namespace AuroraWebSoftware\ASetting\Commands;
+namespace AuroraWebSoftware\ASetting\Console;
 
 use AuroraWebSoftware\ASetting\Facades\ASetting;
 use Illuminate\Console\Command;

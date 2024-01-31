@@ -2,7 +2,7 @@
 
 namespace AuroraWebSoftware\ASetting;
 
-use AuroraWebSoftware\ASetting\Commands\ASettingCommand;
+use AuroraWebSoftware\ASetting\Console\ASettingCommand;
 use Illuminate\Support\ServiceProvider;
 use Spatie\LaravelPackageTools\Package;
 
@@ -10,6 +10,7 @@ class ASettingServiceProvider extends ServiceProvider
 {
     public function boot()
     {
+        $this->registerCommands();
         // Yayınlamaları yüklemek için
         $this->registerPublishing();
 
@@ -71,5 +72,19 @@ class ASettingServiceProvider extends ServiceProvider
             ->hasViews()
             ->hasMigration('create_asetting_table')
             ->hasCommand(ASettingCommand::class);
+    }
+
+    /**
+     * Register the package's commands.
+     *
+     * @return void
+     */
+    protected function registerCommands()
+    {
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                Console\ASettingCommand::class,
+            ]);
+        }
     }
 }
