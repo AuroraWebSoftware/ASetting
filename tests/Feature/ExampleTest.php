@@ -19,6 +19,7 @@ beforeEach(function () {
         $table->jsonb('value')->nullable(false);
         $table->string('title')->nullable(false);
         $table->boolean('is_visible')->default(true);
+        $table->unique(['group', 'key']); // Bu satır eklenmiştir.
 
         $table->timestamps();
     });
