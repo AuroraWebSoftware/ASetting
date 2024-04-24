@@ -83,7 +83,7 @@ class ASetting
             'string' => (string) $setting->value,
             'boolean' => (bool) $setting->value,
             'float' => (float) $setting->value,
-            'array' => json_decode($setting->value, true),
+            'array' => $setting->value,
             default => $setting->value,
         };
     }
